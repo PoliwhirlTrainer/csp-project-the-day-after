@@ -940,29 +940,6 @@ bb66bb66b66bb66bbb66b66bbbb66b6b66b6666bbb66b666b66bb66bbb66b66bbbb66b6b66b6666b
 . . . . 9 . . . . 9 . . . . . . 
 . . . f f . . . f f . . . . . . 
 `;
-            case "image5":
-            case "Upgrading_machine":return img`
-....................
-....................
-....................
-.....fff....fff.....
-..33............55..
-..33............55..
-..bb.ffc....ffc.bb..
-..bb.ffc....ffc.bb..
-.bbbbbbbbbbbbbbbbbb.
-.b7777777777777777b.
-.b7777777777777777b.
-bb7777777777777777bb
-bb7777777777777777bb
-bb7777777777777777bb
-bbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbb
-`;
             case "image14":
             case "grassy_background":return img`
 666666666666666666666666666666
@@ -1242,12 +1219,71 @@ bbbbbbbbbbbbbbbbbbbb
 5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
 5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
 `;
+            case "image3":
+            case "turned_large":return img`
+. e . . . . e e . . . e . . . . 
+. . e . . . e . 3 3 e . . . . . 
+. . e e . e e e 3 3 e . e e e . 
+. . e e e e e e e e e e e . . . 
+. . . e e e e e e e e e . . . . 
+. . e e e 3 3 e e e e e e e . . 
+. e e d 5 3 3 e e e e d . e . . 
+. . . d d e d d d 5 e d . . . . 
+. . . d d e e e d d e 3 3 . . . 
+. . 3 3 d d d e d d e 3 3 . . . 
+. . 3 3 d d d d d d d d . . . . 
+. . . d d d d d d d d . . . . . 
+. . . . d . d d d d d . . . . . 
+. . . . d . d d . d d . . . . . 
+. . . . d d . . . . d . . . . . 
+. . . . d . . . . d d . . . . . 
+`;
+            case "image21":
+            case "light_upgrade":return img`
+. . b . b . . 
+. 9 9 9 9 9 . 
+. f c f c f . 
+. f c c c f . 
+`;
             case "image16":
             case "Keycard1":return img`
 9 9 9 9 9 9 9 
 c c c c c c c 
 c c c c c c c 
 c c c c c c c 
+`;
+            case "image5":
+            case "Upgrade_machine":return img`
+...........................fffffffff...........fffffffff........................
+...........................fffffffff...........fffffffff........................
+..................333333...................................555555...............
+..................333333...................................555555...............
+..................333333...................................555555...............
+..................bbbbbb...ffffffccc...........ffffffccc...bbbbbb...............
+..................bbbbbb...ffffffccc...........ffffffccc...bbbbbb...............
+..................bbbbbb...ffffffccc...........ffffffccc...bbbbbb...............
+..................bbbbbb...ffffffccc...........ffffffccc...bbbbbb...............
+...............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb............
+...............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb............
+...............bbb77777777777777777777777777777777777777777777777bbb............
+...............bbb77777777777777777777777777777777777777777777777bbb............
+...............bbb77777777777777777777777777777777777777777777777bbb............
+............bbbbbb77777777777777777777777777777777777777777777777bbbbbb.........
+............bbbbbb77777777777777777777777777777777777777777777777bbbbbb.........
+............bbbbbb77777777777777777777777777777777777777777777777bbbbbb.........
+............bbbbbb77777777777777777777777777777777777777777777777bbbbbb.........
+............bbbbbb77777777777777777777777777777777777777777777777bbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
+............bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.........
 `;
             case "image17":
             case "Keycard2":return img`
@@ -1277,25 +1313,6 @@ c c c c c c c
 2 2 2 . 2 . 2 
 . . . . . . . 
 `;
-            case "image3":
-            case "turned_large":return img`
-. e . . . . e e . . . e . . . . 
-. . e . . . e . 3 3 e . . . . . 
-. . e e . e e e 3 3 e . e e e . 
-. . e e e e e e e e e e e . . . 
-. . . e e e e e e e e e . . . . 
-. . e e e 3 3 e e e e e e e . . 
-. e e d 5 3 3 e e e e d . e . . 
-. . . d d e d d d 5 e d . . . . 
-. . . d d e e e d d e 3 3 . . . 
-. . 3 3 d d d e d d e 3 3 . . . 
-. . 3 3 d d d d d d d d . . . . 
-. . . d d d d d d d d . . . . . 
-. . . . d . d d d d d . . . . . 
-. . . . d . d d . d d . . . . . 
-. . . . d d . . . . d . . . . . 
-. . . . d . . . . d d . . . . . 
-`;
             case "image13":
             case "PlunderCrawler":return img`
 . . . . . . . . . . . . . . . . 
@@ -1304,8 +1321,8 @@ c c c c c c c
 . . . 6 . f f c f f . 6 . . . . 
 . . . f 6 f c c f f 6 f . . . . 
 . . . f f f f f f f f f . . . . 
-. . . . 6 2 6 6 6 6 6 . . . . . 
-6 6 . . 6 6 6 6 2 6 . . . . . . 
+. . . . 6 5 6 6 6 6 6 . . . . . 
+6 6 . . 6 6 6 6 5 6 . . . . . . 
 . 6 6 . 6 6 6 6 6 6 . . 6 . . . 
 . . 6 6 6 6 6 6 6 6 6 6 6 . . . 
 . . . 6 6 6 . . 6 6 6 . . . . . 
