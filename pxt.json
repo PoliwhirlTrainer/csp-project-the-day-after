@@ -1,0 +1,52 @@
+{
+    "name": "CSP Project: The Day After",
+    "description": "",
+    "dependencies": {
+        "device": "*",
+        "tilemaps": "github:microsoft/pxt-tilemaps#v1.12.0",
+        "Color Fading": "github:jwunderl/pxt-color#v0.2.3",
+        "pxt-lantern": "github:felixtsu/pxt-lantern#v0.2.1",
+        "Inventory": "github:UnsignedArduino/Inventory#v1.1.1",
+        "animation": "*",
+        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "assets.json",
+        "images.g.jres",
+        "images.g.ts",
+        "tilemap.g.jres",
+        "tilemap.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "1.12.47",
+        "targetId": "arcade"
+    },
+    "supportedTargets": [
+        "arcade"
+    ],
+    "preferredEditor": "blocksprj",
+    "palette": [
+        "#000000",
+        "#f5edba",
+        "#9d303b",
+        "#d26471",
+        "#e4943a",
+        "#c0c741",
+        "#647d34",
+        "#34859d",
+        "#17434b",
+        "#FFEE38",
+        "#584563",
+        "#8c8fae",
+        "#FFFFFF",
+        "#d79b7d",
+        "#9a6348",
+        "#1f0e1c"
+    ]
+}
