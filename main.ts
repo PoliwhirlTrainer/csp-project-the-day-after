@@ -6,22 +6,45 @@ namespace SpriteKind {
     export const Keycard3 = SpriteKind.create()
     export const Keycard4 = SpriteKind.create()
     export const Keycard5 = SpriteKind.create()
+    export const Upgrade_Item = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard2, function (sprite, otherSprite) {
     sprites.destroy(KeyCard2)
     protagonist.sayText("I got a level 2 kaycard", 2000, false)
     tiles.setWallAt(tiles.getTileLocation(123, 112), false)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard5, function (sprite, otherSprite) {
+    sprites.destroy(Omni_key)
+    protagonist.sayText("I got an Omni Key!", 2000, false)
+    tiles.setWallAt(tiles.getTileLocation(148, 112), false)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard1, function (sprite, otherSprite) {
     sprites.destroy(KeyCard1)
     protagonist.sayText("I got a level 1 kaycard", 2000, false)
     Upgradability = 1
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard4, function (sprite, otherSprite) {
+    sprites.destroy(KeyCard4)
+    protagonist.sayText("I got a level 4 kaycard", 2000, false)
+    tiles.setWallAt(tiles.getTileLocation(71, 130), false)
 })
 function PowerFluctuation (Power: boolean) {
     if (PowerAble == 1) {
         multilights.toggleLighting(false)
     } else if (PowerAble == 0) {
         multilights.toggleLighting(true)
+    }
+}
+function Upgrade_ItemCheck () {
+    if (protagonist.overlapsWith(Upgrade_item1)) {
+        sprites.destroy(Upgrade_item1)
+        Upgradability = 2
+    } else if (protagonist.overlapsWith(Upgrade_item2)) {
+        sprites.destroy(Upgrade_item2)
+        Upgradability = 3
+    } else if (protagonist.overlapsWith(Upgrade_item3)) {
+        sprites.destroy(Upgrade_item3)
+        Upgradability = 4
     }
 }
 function UpgradeSystem () {
@@ -43,19 +66,6 @@ function UpgradeSystem () {
         PowerFluctuation(true)
     }
 }
-function TurnedEnemySpawning () {
-    SpawnLocations = tiles.getTilesByType(assets.tile`budding_tile`)
-    // Make a list of random velocities for enemies then change them depending on lights on or off
-    for (let index = 0; index < 20; index++) {
-        Enemy_sprites = sprites.create(Turned_EnemyImages._pickRandom(), SpriteKind.Enemy)
-        tiles.placeOnTile(Enemy_sprites, SpawnLocations.removeAt(randint(0, SpawnLocations.length - 1)))
-        Enemy_sprites.setVelocity(25, 25)
-        Enemy_sprites.follow(protagonist)
-    }
-}
-scene.onOverlapTile(SpriteKind.Player, assets.tile`target_tile`, function (sprite, location) {
-    UpgradeSystem()
-})
 function Awakening_Cutscene () {
     scene.setBackgroundImage(assets.image`City_NotDestroyed`)
     game.showLongText("It was a normal day in the city", DialogLayout.Bottom)
@@ -83,11 +93,68 @@ function Awakening_Cutscene () {
     scene.setBackgroundImage(assets.image`City_Turned`)
     pause(1000)
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Upgrade_Item, function (sprite, otherSprite) {
+    Upgrade_ItemCheck()
+})
+function Infection_Mechanic () {
+    Infection_Locations = tiles.getTilesByType(assets.tile`budding_tile`)
+    // Make a list of random velocities for enemies then change them depending on lights on or off
+    for (let index = 0; index < 20; index++) {
+        Infected = sprites.create(assets.image`Spores`, SpriteKind.Enemy)
+        tiles.placeOnTile(Infected, Infection_Locations.removeAt(randint(0, Infection_Locations.length - 1)))
+        Infected.setVelocity(5, 5)
+        Infected.follow(protagonist, 5)
+    }
+}
+function TurnedEnemySpawning () {
+    SpawnLocations = tiles.getTilesByType(assets.tile`budding_tile`)
+    // Make a list of random velocities for enemies then change them depending on lights on or off
+    for (let index = 0; index < 20; index++) {
+        Enemy_sprites = sprites.create(Turned_EnemyImages._pickRandom(), SpriteKind.Enemy)
+        tiles.placeOnTile(Enemy_sprites, SpawnLocations.removeAt(randint(0, SpawnLocations.length - 1)))
+        Enemy_sprites.setVelocity(25, 25)
+        Enemy_sprites.follow(protagonist, 25)
+    }
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard3, function (sprite, otherSprite) {
+    sprites.destroy(KeyCard3)
+    protagonist.sayText("I got a level 3 kaycard", 2000, false)
+    tiles.setWallAt(tiles.getTileLocation(78, 112), false)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`target_tile`, function (sprite, location) {
+    UpgradeSystem()
+})
+function OutriderSpawning () {
+    Outrider_locations = tiles.getTilesByType(assets.tile`fully_grown_flower`)
+    // Make a list of random velocities for enemies then change them depending on lights on or off
+    for (let index = 0; index < 10; index++) {
+        Outriders = sprites.create(assets.image`Outrider`, SpriteKind.Enemy)
+        tiles.placeOnTile(Outriders, Outrider_locations.removeAt(randint(0, Outrider_locations.length - 1)))
+        Outriders.setVelocity(75, 75)
+        Outriders.follow(protagonist, 75)
+    }
+    Outrider_locations2 = tiles.getTilesByType(assets.tile`fully_grown_flower0`)
+    // Make a list of random velocities for enemies then change them depending on lights on or off
+    for (let index = 0; index < 10; index++) {
+        Outriders = sprites.create(assets.image`Outrider`, SpriteKind.Enemy)
+        tiles.placeOnTile(Outriders, Outrider_locations2.removeAt(randint(0, Outrider_locations2.length - 1)))
+        Outriders.setVelocity(75, 75)
+        Outriders.follow(protagonist, 75)
+    }
+}
+let Outrider_locations2: tiles.Location[] = []
+let Outriders: Sprite = null
+let Outrider_locations: tiles.Location[] = []
+let Enemy_sprites: Sprite = null
+let SpawnLocations: tiles.Location[] = []
+let Infected: Sprite = null
+let Infection_Locations: tiles.Location[] = []
 let INfectedCutscene2: Sprite = null
 let InfectedCutscene: Sprite = null
 let HumanCutscene: Sprite = null
-let Enemy_sprites: Sprite = null
-let SpawnLocations: tiles.Location[] = []
+let Upgrade_item3: Sprite = null
+let Upgrade_item2: Sprite = null
+let Upgrade_item1: Sprite = null
 let Upgradability = 0
 let Omni_key: Sprite = null
 let KeyCard4: Sprite = null
@@ -109,6 +176,8 @@ multilights.addLightSource(protagonist, 10)
 PowerFluctuation(true)
 Turned_EnemyImages = [assets.image`turned_large`, assets.image`turned_small`, assets.image`PlunderCrawler`]
 TurnedEnemySpawning()
+OutriderSpawning()
+Infection_Mechanic()
 KeyCard1 = sprites.create(assets.image`Keycard1`, SpriteKind.Keycard1)
 KeyCard2 = sprites.create(assets.image`Keycard2`, SpriteKind.Keycard2)
 KeyCard3 = sprites.create(assets.image`Keycard3`, SpriteKind.Keycard3)
@@ -118,3 +187,9 @@ tiles.placeOnRandomTile(KeyCard1, assets.tile`Dead_turned_small`)
 let Upgrade_Machine = sprites.create(assets.image`Upgrade_machine`, SpriteKind.Machine)
 tiles.placeOnTile(Upgrade_Machine, tiles.getTileLocation(11, 99))
 Upgradability = 0
+Upgrade_item1 = sprites.create(assets.image`Upgrade_token1`, SpriteKind.Upgrade_Item)
+tiles.placeOnTile(Upgrade_item1, tiles.getTileLocation(127, 108))
+Upgrade_item2 = sprites.create(assets.image`Upgrade_token2`, SpriteKind.Upgrade_Item)
+tiles.placeOnRandomTile(Upgrade_item2, assets.tile`dead_scientist`)
+Upgrade_item3 = sprites.create(assets.image`Upgrade_token3`, SpriteKind.Upgrade_Item)
+tiles.placeOnTile(Upgrade_item3, tiles.getTileLocation(74, 134))
