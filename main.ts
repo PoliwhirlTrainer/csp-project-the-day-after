@@ -7,6 +7,7 @@ namespace SpriteKind {
     export const Keycard4 = SpriteKind.create()
     export const Keycard5 = SpriteKind.create()
     export const Upgrade_Item = SpriteKind.create()
+    export const Spores = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard2, function (sprite, otherSprite) {
     sprites.destroy(KeyCard2)
@@ -34,6 +35,21 @@ function PowerFluctuation (Power: boolean) {
     } else if (PowerAble == 0) {
         multilights.toggleLighting(true)
     }
+}
+function jumpscare () {
+    sprites.destroyAllSpritesOfKind(SpriteKind.Player)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+    sprites.destroyAllSpritesOfKind(SpriteKind.BackGround_Image)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Keycard1)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Machine)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Keycard2)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Keycard3)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Keycard4)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Keycard5)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Upgrade_Item)
+    tiles.setCurrentTilemap(tilemap`jumpscare_level`)
+    scene.setBackgroundImage(assets.image`scary`)
+    game.showLongText("You've Been Killed", DialogLayout.Center)
 }
 function Upgrade_ItemCheck () {
     if (protagonist.overlapsWith(Upgrade_item1)) {
@@ -66,6 +82,19 @@ function UpgradeSystem () {
         PowerFluctuation(true)
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Spores, function (sprite, otherSprite) {
+    if (Infection_LVL == 0) {
+        Infection_LVL = 1
+    } else if (Infection_LVL == 1) {
+        Infection_LVL = 2
+    } else if (Infection_LVL == 2) {
+        Infection_LVL = 3
+    } else if (Infection_LVL == 3) {
+        Infection_LVL = 4
+    } else if (Infection_LVL == 4) {
+        Infection_LVL = 5
+    }
+})
 function Awakening_Cutscene () {
     scene.setBackgroundImage(assets.image`City_NotDestroyed`)
     game.showLongText("It was a normal day in the city", DialogLayout.Bottom)
@@ -100,12 +129,16 @@ function Infection_Mechanic () {
     Infection_Locations = tiles.getTilesByType(assets.tile`budding_tile`)
     // Make a list of random velocities for enemies then change them depending on lights on or off
     for (let index = 0; index < 20; index++) {
-        Infected = sprites.create(assets.image`Spores`, SpriteKind.Enemy)
+        Infected = sprites.create(assets.image`Spores`, SpriteKind.Spores)
         tiles.placeOnTile(Infected, Infection_Locations.removeAt(randint(0, Infection_Locations.length - 1)))
         Infected.setVelocity(5, 5)
         Infected.follow(protagonist, 5)
     }
+    Infection_LVL = 0
 }
+info.onLifeZero(function () {
+    jumpscare()
+})
 function TurnedEnemySpawning () {
     SpawnLocations = tiles.getTilesByType(assets.tile`budding_tile`)
     // Make a list of random velocities for enemies then change them depending on lights on or off
@@ -142,6 +175,9 @@ function OutriderSpawning () {
         Outriders.follow(protagonist, 75)
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+})
 let Outrider_locations2: tiles.Location[] = []
 let Outriders: Sprite = null
 let Outrider_locations: tiles.Location[] = []
@@ -152,6 +188,7 @@ let Infection_Locations: tiles.Location[] = []
 let INfectedCutscene2: Sprite = null
 let InfectedCutscene: Sprite = null
 let HumanCutscene: Sprite = null
+let Infection_LVL = 0
 let Upgrade_item3: Sprite = null
 let Upgrade_item2: Sprite = null
 let Upgrade_item1: Sprite = null
@@ -193,3 +230,4 @@ Upgrade_item2 = sprites.create(assets.image`Upgrade_token2`, SpriteKind.Upgrade_
 tiles.placeOnRandomTile(Upgrade_item2, assets.tile`dead_scientist`)
 Upgrade_item3 = sprites.create(assets.image`Upgrade_token3`, SpriteKind.Upgrade_Item)
 tiles.placeOnTile(Upgrade_item3, tiles.getTileLocation(74, 134))
+info.setLife(5)
