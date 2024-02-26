@@ -11,22 +11,22 @@ namespace SpriteKind {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard2, function (sprite, otherSprite) {
     sprites.destroy(KeyCard2)
-    protagonist.sayText("I got a level 2 kaycard", 2000, false)
+    protagonist.sayText("lvl 2", 2000, false)
     tiles.setWallAt(tiles.getTileLocation(123, 112), false)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard5, function (sprite, otherSprite) {
     sprites.destroy(Omni_key)
-    protagonist.sayText("I got an Omni Key!", 2000, false)
+    protagonist.sayText("omni", 2000, false)
     tiles.setWallAt(tiles.getTileLocation(148, 112), false)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard1, function (sprite, otherSprite) {
     sprites.destroy(KeyCard1)
-    protagonist.sayText("I got a level 1 kaycard", 2000, false)
     Upgradability = 1
+    protagonist.sayText("lvl 1", 2000, false)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard4, function (sprite, otherSprite) {
     sprites.destroy(KeyCard4)
-    protagonist.sayText("I got a level 4 kaycard", 2000, false)
+    protagonist.sayText("lvl 4", 2000, false)
     tiles.setWallAt(tiles.getTileLocation(71, 130), false)
 })
 function PowerFluctuation (Power: boolean) {
@@ -83,17 +83,10 @@ function UpgradeSystem () {
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Spores, function (sprite, otherSprite) {
-    if (Infection_LVL == 0) {
-        Infection_LVL = 1
-    } else if (Infection_LVL == 1) {
-        Infection_LVL = 2
-    } else if (Infection_LVL == 2) {
-        Infection_LVL = 3
-    } else if (Infection_LVL == 3) {
-        Infection_LVL = 4
-    } else if (Infection_LVL == 4) {
-        Infection_LVL = 5
-    }
+    Infection_Mechanic()
+})
+statusbars.onZero(StatusBarKind.Health, function (status) {
+    jumpscare()
 })
 function Awakening_Cutscene () {
     scene.setBackgroundImage(assets.image`City_NotDestroyed`)
@@ -135,10 +128,19 @@ function Infection_Mechanic () {
         Infected.follow(protagonist, 5)
     }
     Infection_LVL = 0
+    if (Infection_LVL == 0) {
+        Infection_LVL = 1
+    } else if (Infection_LVL == 1) {
+        Infection_LVL = 2
+    } else if (Infection_LVL == 2) {
+        Infection_LVL = 3
+        protagonist = sprites.create(assets.image`delete now`, SpriteKind.Player)
+    } else if (Infection_LVL == 3) {
+        Infection_LVL = 4
+    } else if (Infection_LVL == 4) {
+        Infection_LVL = 5
+    }
 }
-info.onLifeZero(function () {
-    jumpscare()
-})
 function TurnedEnemySpawning () {
     SpawnLocations = tiles.getTilesByType(assets.tile`budding_tile`)
     // Make a list of random velocities for enemies then change them depending on lights on or off
@@ -151,7 +153,7 @@ function TurnedEnemySpawning () {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard3, function (sprite, otherSprite) {
     sprites.destroy(KeyCard3)
-    protagonist.sayText("I got a level 3 kaycard", 2000, false)
+    protagonist.sayText("lvl 3", 2000, false)
     tiles.setWallAt(tiles.getTileLocation(78, 112), false)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`target_tile`, function (sprite, location) {
@@ -176,19 +178,20 @@ function OutriderSpawning () {
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    info.changeLifeBy(-1)
+    statusbar.value += -5
 })
 let Outrider_locations2: tiles.Location[] = []
 let Outriders: Sprite = null
 let Outrider_locations: tiles.Location[] = []
 let Enemy_sprites: Sprite = null
 let SpawnLocations: tiles.Location[] = []
+let Infection_LVL = 0
 let Infected: Sprite = null
 let Infection_Locations: tiles.Location[] = []
 let INfectedCutscene2: Sprite = null
 let InfectedCutscene: Sprite = null
 let HumanCutscene: Sprite = null
-let Infection_LVL = 0
+let statusbar: StatusBarSprite = null
 let Upgrade_item3: Sprite = null
 let Upgrade_item2: Sprite = null
 let Upgrade_item1: Sprite = null
@@ -230,4 +233,6 @@ Upgrade_item2 = sprites.create(assets.image`Upgrade_token2`, SpriteKind.Upgrade_
 tiles.placeOnRandomTile(Upgrade_item2, assets.tile`dead_scientist`)
 Upgrade_item3 = sprites.create(assets.image`Upgrade_token3`, SpriteKind.Upgrade_Item)
 tiles.placeOnTile(Upgrade_item3, tiles.getTileLocation(74, 134))
-info.setLife(5)
+statusbar = statusbars.create(20, 4, StatusBarKind.Health)
+statusbar.value = 1500
+statusbar.attachToSprite(protagonist)

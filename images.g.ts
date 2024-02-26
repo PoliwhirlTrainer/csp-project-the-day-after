@@ -1654,6 +1654,44 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 `;
+            case "image28":
+            case "delete now":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . 3 . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`;
+            case "image29":
+            case "PrisonProtagonist_infected_LVL1":return img`
+. . . . . . . . . . . . . . . . 
+. . . . e e e e e e e e . . . . 
+. . . e e e e e e e e e e . . . 
+. . e e e e e e e e e e e e . . 
+. . e e e e e e e e e e e e e . 
+. e e e e 5 e d d 5 e e e e e . 
+. e e d e d d d d 5 5 d e e e . 
+. e e e d c f d d f c d e e e . 
+. e e e d c f d d f c d e e e . 
+. . e e d d d d d d d 5 e e . . 
+. . . e e e 4 4 4 4 e e e . . . 
+. . 4 4 f 4 f 4 4 f 4 f 4 4 . . 
+. . 4 d f f 4 f 4 f 4 f d 4 . . 
+. . d 4 f 4 f 4 4 f 4 f 4 d . . 
+. . . . . 4 4 4 4 4 4 . . . . . 
+. . . . . d d . . d d . . . . . 
+`;
         }
         return null;
     })

@@ -144,6 +144,16 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "End_Cutscene"
     },
+    "image28": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "delete now"
+    },
+    "image29": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAA4O4OAAAAAODu7u5A1AAA7u7t7k5NAODu7t7d/v8A4O5ezdxOT9Tg7u793/T01ODu3t3dRE8E4O7e3d1ERATg7l713/T/1ODu7sXcTkTU4O7u3V3+/wAA7u7u7k5NAADg7u7uQNQAAADu7g4AAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "PrisonProtagonist_infected_LVL1"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
