@@ -1673,6 +1673,25 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `;
+            case "image30":
+            case "rulebook":return img`
+. . . . . . . . . . . . . . . . 
+. e e e e e e e e e e e . . . . 
+. e e e e e e e e e e c . . . . 
+. e e e e e e e e e e c . . . . 
+. e e e e 9 9 9 e e e c . . . . 
+. e e e 9 9 f f e e e c . . . . 
+. e e e 9 9 9 9 e e e c . . . . 
+. e e e e 9 e 9 e e e c . . . . 
+. e e e e e e e e e e c . . . . 
+. e e e e e e e e e e c . . . . 
+. e e e e e e e e e e c . . . . 
+. e e e e e e e e e e c . . . . 
+. e e e e e e e e e e c . . . . 
+. e c c c c c c c c c c . . . . 
+. e e e e e e e e e e e . . . . 
+. . . . . . . . . . . . . . . . 
+`;
             case "image29":
             case "PrisonProtagonist_infected_LVL1":return img`
 . . . . . . . . . . . . . . . . 

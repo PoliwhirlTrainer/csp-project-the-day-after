@@ -8,6 +8,7 @@ namespace SpriteKind {
     export const Keycard5 = SpriteKind.create()
     export const Upgrade_Item = SpriteKind.create()
     export const Spores = SpriteKind.create()
+    export const Book = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard2, function (sprite, otherSprite) {
     sprites.destroy(KeyCard2)
@@ -18,6 +19,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard5, function (sprite, othe
     sprites.destroy(Omni_key)
     protagonist.sayText("omni", 2000, false)
     tiles.setWallAt(tiles.getTileLocation(148, 112), false)
+})
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    statusbar.value += 100
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Keycard1, function (sprite, otherSprite) {
     sprites.destroy(KeyCard1)
@@ -48,8 +52,8 @@ function jumpscare () {
     sprites.destroyAllSpritesOfKind(SpriteKind.Keycard5)
     sprites.destroyAllSpritesOfKind(SpriteKind.Upgrade_Item)
     tiles.setCurrentTilemap(tilemap`jumpscare_level`)
-    scene.setBackgroundImage(assets.image`scary`)
     game.showLongText("You've Been Killed", DialogLayout.Center)
+    scene.setBackgroundImage(assets.image`scary`)
 }
 function Upgrade_ItemCheck () {
     if (protagonist.overlapsWith(Upgrade_item1)) {
@@ -83,11 +87,33 @@ function UpgradeSystem () {
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Spores, function (sprite, otherSprite) {
+    sprites.destroy(Infected, effects.ashes, 500)
+    pause(2000)
     Infection_Mechanic()
 })
+function SporeSPawn () {
+    Infection_Locations = tiles.getTilesByType(assets.tile`budding_tile`)
+    // Make a list of random velocities for enemies then change them depending on lights on or off
+    for (let index = 0; index < 20; index++) {
+        Infected = sprites.create(assets.image`Spores`, SpriteKind.Spores)
+        tiles.placeOnTile(Infected, Infection_Locations.removeAt(randint(0, Infection_Locations.length - 1)))
+        Infected.setVelocity(5, 5)
+        Infected.follow(protagonist, 5)
+    }
+}
 statusbars.onZero(StatusBarKind.Health, function (status) {
     jumpscare()
 })
+function ReadBook () {
+    sprites.destroy(RuleBook)
+    game.showLongText("Essential Tips for Surviors of The Apocalypse", DialogLayout.Center)
+    game.showLongText("1. Dead Bodies usually have important items", DialogLayout.Center)
+    game.showLongText("2. Upgrade Tokens can be used to upgrade keycards and other items", DialogLayout.Center)
+    game.showLongText("3. The Upgrade Machine is not a toy", DialogLayout.Center)
+    game.showLongText("4. Press \"B\" to heal if you get hurt", DialogLayout.Center)
+    game.showLongText("5. Avoid the Turned and especially", DialogLayout.Center)
+    game.showLongText("6. AVOID THE SPORES............", DialogLayout.Center)
+}
 function Awakening_Cutscene () {
     scene.setBackgroundImage(assets.image`City_NotDestroyed`)
     game.showLongText("It was a normal day in the city", DialogLayout.Bottom)
@@ -119,32 +145,30 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Upgrade_Item, function (sprite, 
     Upgrade_ItemCheck()
 })
 function Infection_Mechanic () {
-    Infection_Locations = tiles.getTilesByType(assets.tile`budding_tile`)
-    // Make a list of random velocities for enemies then change them depending on lights on or off
-    for (let index = 0; index < 20; index++) {
-        Infected = sprites.create(assets.image`Spores`, SpriteKind.Spores)
-        tiles.placeOnTile(Infected, Infection_Locations.removeAt(randint(0, Infection_Locations.length - 1)))
-        Infected.setVelocity(5, 5)
-        Infected.follow(protagonist, 5)
-    }
-    Infection_LVL = 0
     if (Infection_LVL == 0) {
         Infection_LVL = 1
+        statusbar.value = 1250
     } else if (Infection_LVL == 1) {
         Infection_LVL = 2
+        statusbar.value = 1000
+        game.splash("*cough* *cough*")
     } else if (Infection_LVL == 2) {
         Infection_LVL = 3
-        protagonist = sprites.create(assets.image`delete now`, SpriteKind.Player)
+        protagonist = sprites.create(assets.image`PrisonProtagonist_infected_LVL1`, SpriteKind.Player)
+        statusbar.value = 750
     } else if (Infection_LVL == 3) {
         Infection_LVL = 4
+        statusbar.value = 500
+        game.splash("*Intense Coughing*")
     } else if (Infection_LVL == 4) {
         Infection_LVL = 5
+        jumpscare()
     }
 }
 function TurnedEnemySpawning () {
     SpawnLocations = tiles.getTilesByType(assets.tile`budding_tile`)
     // Make a list of random velocities for enemies then change them depending on lights on or off
-    for (let index = 0; index < 20; index++) {
+    for (let index = 0; index < 10; index++) {
         Enemy_sprites = sprites.create(Turned_EnemyImages._pickRandom(), SpriteKind.Enemy)
         tiles.placeOnTile(Enemy_sprites, SpawnLocations.removeAt(randint(0, SpawnLocations.length - 1)))
         Enemy_sprites.setVelocity(25, 25)
@@ -162,7 +186,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`target_tile`, function (sprit
 function OutriderSpawning () {
     Outrider_locations = tiles.getTilesByType(assets.tile`fully_grown_flower`)
     // Make a list of random velocities for enemies then change them depending on lights on or off
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 5; index++) {
         Outriders = sprites.create(assets.image`Outrider`, SpriteKind.Enemy)
         tiles.placeOnTile(Outriders, Outrider_locations.removeAt(randint(0, Outrider_locations.length - 1)))
         Outriders.setVelocity(75, 75)
@@ -170,13 +194,16 @@ function OutriderSpawning () {
     }
     Outrider_locations2 = tiles.getTilesByType(assets.tile`fully_grown_flower0`)
     // Make a list of random velocities for enemies then change them depending on lights on or off
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 5; index++) {
         Outriders = sprites.create(assets.image`Outrider`, SpriteKind.Enemy)
         tiles.placeOnTile(Outriders, Outrider_locations2.removeAt(randint(0, Outrider_locations2.length - 1)))
         Outriders.setVelocity(75, 75)
         Outriders.follow(protagonist, 75)
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Book, function (sprite, otherSprite) {
+    ReadBook()
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     statusbar.value += -5
 })
@@ -185,12 +212,13 @@ let Outriders: Sprite = null
 let Outrider_locations: tiles.Location[] = []
 let Enemy_sprites: Sprite = null
 let SpawnLocations: tiles.Location[] = []
-let Infection_LVL = 0
-let Infected: Sprite = null
-let Infection_Locations: tiles.Location[] = []
 let INfectedCutscene2: Sprite = null
 let InfectedCutscene: Sprite = null
 let HumanCutscene: Sprite = null
+let Infection_Locations: tiles.Location[] = []
+let Infected: Sprite = null
+let Infection_LVL = 0
+let RuleBook: Sprite = null
 let statusbar: StatusBarSprite = null
 let Upgrade_item3: Sprite = null
 let Upgrade_item2: Sprite = null
@@ -217,7 +245,7 @@ PowerFluctuation(true)
 Turned_EnemyImages = [assets.image`turned_large`, assets.image`turned_small`, assets.image`PlunderCrawler`]
 TurnedEnemySpawning()
 OutriderSpawning()
-Infection_Mechanic()
+SporeSPawn()
 KeyCard1 = sprites.create(assets.image`Keycard1`, SpriteKind.Keycard1)
 KeyCard2 = sprites.create(assets.image`Keycard2`, SpriteKind.Keycard2)
 KeyCard3 = sprites.create(assets.image`Keycard3`, SpriteKind.Keycard3)
@@ -236,3 +264,6 @@ tiles.placeOnTile(Upgrade_item3, tiles.getTileLocation(74, 134))
 statusbar = statusbars.create(20, 4, StatusBarKind.Health)
 statusbar.value = 1500
 statusbar.attachToSprite(protagonist)
+RuleBook = sprites.create(assets.image`rulebook`, SpriteKind.Book)
+tiles.placeOnTile(RuleBook, tiles.getTileLocation(14, 148))
+Infection_LVL = 0
